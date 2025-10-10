@@ -12,6 +12,7 @@ wheels/
 # other
 .history
 *.csv
+.env
 
 # test
 /test/
