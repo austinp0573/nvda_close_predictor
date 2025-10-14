@@ -36,7 +36,7 @@ df['RSI_NVDA'] = 100 - (100 / (1 + rs))
 df.dropna(inplace=True)
 
 # save the enriched dataset to a new file
-df.to_csv('data_with_features.csv')
+df.to_csv('data/data_with_features.csv')
 
 
 print(f"new dataset has {len(df)} rows after dropping initial empty values")
