@@ -1,17 +1,17 @@
-"""reproduce needed functionality from data_explore.ipynb"""
+"""merge multiple data sources into aligned dataset"""
 from pathlib import Path
 import pandas as pd
 
 def align_data_sources(output_file='final_aligned_data.csv'):
     """
-    merged NVDA, nasdaq-100, s&p500, and VIX into single aligned dataset
+    merge NVDA, nasdaq-100, s&p500, and vix into single aligned dataset
     
-    Args:
+    args:
         output_file: name of desired .csv file - will automatically put it in project directory 
         /data/
         
-    Returns:
-        .csv file with merged data
+    returns:
+        dataframe with merged data
     """
     # get paths
     PROJECT_ROOT = Path(__file__).parent.parent
@@ -52,7 +52,7 @@ def align_data_sources(output_file='final_aligned_data.csv'):
     df_master.to_csv(output_path, index=False)
     
     print(f"merged {len(df_master)} rows from {len(files)} sources")
-    print(f"Saved to {output_path}")
+    print(f"saved to {output_path}")
     
     return df_master
 

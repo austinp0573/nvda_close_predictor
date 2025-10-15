@@ -16,13 +16,12 @@ wheels/
 preprocessed_data.npz
 
 # test
-/test/
+/test1/
 
 # data
 /data/
 
 # working
-/working/
+/working1/
 
-# test1
-/test1/
+# test1 /test1/
