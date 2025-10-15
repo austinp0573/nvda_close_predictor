@@ -11,15 +11,10 @@ wheels/
 
 # other
 .history
-*.csv
 .env
-preprocessed_data.npz
 
 # test
 /test1/
-
-# data
-/data/
 
 # working
 /working1/
