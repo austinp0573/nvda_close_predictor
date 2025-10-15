@@ -1,18 +1,28 @@
+"""add technical indicators to aligned data"""
 from pathlib import Path
 import pandas as pd
 
 def create_features(input_file='final_aligned_data.csv', output_file='data_with_features.csv'):
-    """Add technical indicators (SMA, RSI) to aligned data."""
+    """
+    add technical indicators (sma, rsi) to aligned data
+    
+    args:
+        input_file: input csv with aligned data
+        output_file: output csv with features
+        
+    returns:
+        dataframe with features
+    """
     PROJECT_ROOT = Path(__file__).parent.parent
     DATA_DIR = PROJECT_ROOT / 'data'
     
     df = pd.read_csv(DATA_DIR / input_file, index_col='Date', parse_dates=True)
     
-    # SMA
+    # simple moving averages
     df['SMA_20_NVDA'] = df['Close_NVDA'].rolling(window=20).mean()
     df['SMA_50_NVDA'] = df['Close_NVDA'].rolling(window=50).mean()
     
-    # RSI
+    # relative strength index
     delta = df['Close_NVDA'].diff(1)
     gain = delta.where(delta > 0, 0)
     loss = -delta.where(delta < 0, 0)
@@ -21,6 +31,7 @@ def create_features(input_file='final_aligned_data.csv', output_file='data_with_
     rs = avg_gain / avg_loss
     df['RSI_NVDA'] = 100 - (100 / (1 + rs))
     
+    # drop nan values from rolling calculations
     df.dropna(inplace=True)
     df.to_csv(DATA_DIR / output_file)
     
