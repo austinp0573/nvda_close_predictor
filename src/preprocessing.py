@@ -1,3 +1,4 @@
+"""split, scale, and save preprocessed data"""
 from pathlib import Path
 import pandas as pd
 import numpy as np
@@ -10,13 +11,13 @@ def preprocess_data(input_file='data_with_features.csv',
     """
     split, scale, and save preprocessed data
     
-    Args:
-        input_file: nnput .csv with features
+    args:
+        input_file: input .csv with features
         output_file: output .npz file
         prediction_days: days ahead to predict (default: 5)
         test_size: fraction of data for testing (default: 0.2)
     
-    Returns:
+    returns:
         tuple of (X_train, X_test, y_train, y_test) scaled arrays
     """
     PROJECT_ROOT = Path(__file__).parent.parent
@@ -26,13 +27,13 @@ def preprocess_data(input_file='data_with_features.csv',
     df = pd.read_csv(DATA_DIR / input_file, index_col='Date', parse_dates=True)
     
     # create target variable - shift backwards by prediction_days
-    # 'Target' for today is the actual closing price from N days in the future
+    # 'target' for today is the actual closing price from n days in the future
     df['Target'] = df['Close_NVDA'].shift(-prediction_days)
     
-    # drop NaN values created by shift
+    # drop nan values created by shift
     df.dropna(inplace=True)
     
-    # separate features (X) and target (y)
+    # separate features (x) and target (y)
     X = df.drop(['Target'], axis=1)
     y = df['Target']
     
@@ -41,7 +42,7 @@ def preprocess_data(input_file='data_with_features.csv',
     X_train, X_test = X[:split_index], X[split_index:]
     y_train, y_test = y[:split_index], y[split_index:]
     
-    # scale features, fit ONLY on training data to prevent data leakage
+    # scale features, fit only on training data to prevent data leakage
     scaler_x = MinMaxScaler()
     X_train_scaled = scaler_x.fit_transform(X_train)
     X_test_scaled = scaler_x.transform(X_test)
@@ -53,7 +54,7 @@ def preprocess_data(input_file='data_with_features.csv',
     
     # save preprocessed arrays
     np.savez_compressed(
-        PROJECT_ROOT / output_file,
+        DATA_DIR / output_file,
         X_train=X_train_scaled,
         X_test=X_test_scaled,
         y_train=y_train_scaled,
