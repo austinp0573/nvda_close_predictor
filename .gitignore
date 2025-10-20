@@ -20,3 +20,6 @@ wheels/
 /working1/
 
 preprocessed_data.npz
+prediction_chart.png
+price_analysis.png
+best_model.pth

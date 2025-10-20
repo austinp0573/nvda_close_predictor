@@ -1,7 +1,7 @@
 [project]
 name = "nvda-close-predictor"
 version = "0.1.0"
-description = "Add your description here"
+description = "machine learning project to predict the closing prive of NVDA at a user defined number of days in the future (between 1 & 30)"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
